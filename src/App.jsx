@@ -45,6 +45,13 @@ function App() {
   }, [permissionGranted, videoStream]);
 
   useEffect(() => {
+    if (qrData) {
+      // db에서 보내는 작업
+      alert(`qrdata : ${qrData}`);
+    }
+  }, []);
+
+  useEffect(() => {
     if (videoStream) {
       const video = videoRef.current;
       const canvas = canvasRef.current;
@@ -76,13 +83,6 @@ function App() {
       requestAnimationFrame(scan);
     }
   }, [permissionGranted, videoStream]);
-
-  useEffect(() => {
-    if (qrData) {
-      // db에서 보내는 작업
-      alert(`qrdata : ${qrData}`);
-    }
-  }, []);
 
   // 위도, 경도 가져오기
   useEffect(() => {
