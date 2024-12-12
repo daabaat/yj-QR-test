@@ -19,34 +19,30 @@ function App() {
       try {
         const stream = await navigator.mediaDevices.getUserMedia({
           video: {
-            // 후면 카메라로 설정
-            facingMode: "environment",
+            facingMode: "environment", // 후면 카메라
           },
         });
-
         setVideoStream(stream);
         setPermissionGranted(true);
-
         if (videoRef.current) {
           videoRef.current.srcObject = stream;
         }
-
-        if (permissionGranted === null) {
-          requestCameraPermission();
-        }
-
-        return () => {
-          if (videoStream) {
-            videoStream.getTracks().forEach((track) => {
-              track.stop();
-            });
-          }
-        };
       } catch (error) {
-        console.log(error);
+        console.log("카메라 권한 요청 실패:", error);
+        setPermissionGranted(false);
       }
     };
-  }, [permissionGranted, videoStream]);
+
+    if (permissionGranted === null) {
+      requestCameraPermission();
+    }
+
+    return () => {
+      if (videoStream) {
+        videoStream.getTracks().forEach((track) => track.stop());
+      }
+    };
+  }, [permissionGranted]);
 
   useEffect(() => {
     if (videoStream) {
