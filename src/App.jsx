@@ -49,7 +49,7 @@ function App() {
       // db에서 보내는 작업
       alert(`qrdata : ${qrData}`);
     }
-  }, []);
+  }, [qrData]);
 
   useEffect(() => {
     if (videoStream) {
