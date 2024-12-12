@@ -42,7 +42,7 @@ function App() {
         videoStream.getTracks().forEach((track) => track.stop());
       }
     };
-  }, [permissionGranted]);
+  }, [permissionGranted, videoStream]);
 
   useEffect(() => {
     if (videoStream) {
